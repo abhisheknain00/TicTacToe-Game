@@ -15,7 +15,9 @@ function App() {
 
   const { winner, winningSquares } = calculateWinner(gamingBoard.squares);
 
-  console.log({ history, currentMove });
+  const noMovesLeft = gamingBoard.squares.every(
+    squareValue => squareValue !== null
+  );
 
   const handleSquareClick = clickedPosition => {
     if (gamingBoard.squares[clickedPosition] || winner) {
@@ -75,7 +77,7 @@ function App() {
       <button
         type="button"
         onClick={onNewGameStart}
-        className={`btn-reset ${winner ? 'active' : ''}`}
+        className={`btn-reset ${winner || noMovesLeft ? 'active' : ''}`}
       >
         Start New Game
       </button>
@@ -88,6 +90,7 @@ function App() {
         Cuurent Game History
       </h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
+      <div className="bg-balls" />
     </div>
   );
 }
